@@ -11,6 +11,9 @@ from frequenz.api.common.v1.microgrid.components.components_pb2 import (
     ComponentCategory as PBComponentCategory,
 )
 from frequenz.api.common.v1.microgrid.components.components_pb2 import (
+    ComponentErrorCode as PBComponentErrorCode,
+)
+from frequenz.api.common.v1.microgrid.components.components_pb2 import (
     ComponentStateCode as PBComponentStateCode,
 )
 
@@ -167,6 +170,183 @@ class ComponentStateCode(Enum):
 
     def to_proto(self) -> PBComponentStateCode.ValueType:
         """Convert a ComponentStateCode enum to protobuf ComponentStateCode message.
+
+        Returns:
+            Enum value corresponding to the protobuf message.
+        """
+        return self.value
+
+
+class ComponentErrorCode(Enum):
+    """All possible errors that can occur across all microgrid component categories."""
+
+    UNSPECIFIED = PBComponentErrorCode.COMPONENT_ERROR_CODE_UNSPECIFIED
+    """Default value. No specific error is specified."""
+
+    UNKNOWN = PBComponentErrorCode.COMPONENT_ERROR_CODE_UNKNOWN
+    """The component is reporting an unknown or an undefined error, and the sender
+    cannot parse the component error to any of the variants below."""
+
+    SWITCH_ON_FAULT = PBComponentErrorCode.COMPONENT_ERROR_CODE_SWITCH_ON_FAULT
+    """Error indicating that the component could not be switched on."""
+
+    UNDERVOLTAGE = PBComponentErrorCode.COMPONENT_ERROR_CODE_UNDERVOLTAGE
+    """Error indicating that the component is operating under the minimum rated
+    voltage."""
+
+    OVERVOLTAGE = PBComponentErrorCode.COMPONENT_ERROR_CODE_OVERVOLTAGE
+    """Error indicating that the component is operating over the maximum rated
+    voltage."""
+
+    OVERCURRENT = PBComponentErrorCode.COMPONENT_ERROR_CODE_OVERCURRENT
+    """Error indicating that the component is drawing more current than the
+    maximum rated value."""
+
+    OVERCURRENT_CHARGING = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_OVERCURRENT_CHARGING
+    )
+    """Error indicating that the component's consumption current is over the
+    maximum rated value during charging."""
+
+    OVERCURRENT_DISCHARGING = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_OVERCURRENT_DISCHARGING
+    )
+    """Error indicating that the component's production current is over the
+    maximum rated value during discharging."""
+
+    OVERTEMPERATURE = PBComponentErrorCode.COMPONENT_ERROR_CODE_OVERTEMPERATURE
+    """Error indicating that the component is operating over the maximum rated
+    temperature."""
+
+    UNDERTEMPERATURE = PBComponentErrorCode.COMPONENT_ERROR_CODE_UNDERTEMPERATURE
+    """Error indicating that the component is operating under the minimum rated
+    temperature."""
+
+    HIGH_HUMIDITY = PBComponentErrorCode.COMPONENT_ERROR_CODE_HIGH_HUMIDITY
+    """Error indicating that the component is exposed to high humidity levels over
+    the maximum rated value."""
+
+    FUSE_ERROR = PBComponentErrorCode.COMPONENT_ERROR_CODE_FUSE_ERROR
+    """Error indicating that the component's fuse has blown."""
+
+    PRECHARGE_ERROR = PBComponentErrorCode.COMPONENT_ERROR_CODE_PRECHARGE_ERROR
+    """Error indicating that the component's precharge unit has failed."""
+
+    PLAUSIBILITY_ERROR = PBComponentErrorCode.COMPONENT_ERROR_CODE_PLAUSIBILITY_ERROR
+    """Error indicating plausibility issues within the system involving this
+    component."""
+
+    UNDERVOLTAGE_SHUTDOWN = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_UNDERVOLTAGE_SHUTDOWN
+    )
+    """Error indicating system shutdown due to undervoltage involving this
+    component."""
+
+    EV_UNEXPECTED_PILOT_FAILURE = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_EV_UNEXPECTED_PILOT_FAILURE
+    )
+    """Error indicating unexpected pilot failure in an electric vehicle (EV)
+    component."""
+
+    FAULT_CURRENT = PBComponentErrorCode.COMPONENT_ERROR_CODE_FAULT_CURRENT
+    """Error indicating fault current detected in the component."""
+
+    SHORT_CIRCUIT = PBComponentErrorCode.COMPONENT_ERROR_CODE_SHORT_CIRCUIT
+    """Error indicating a short circuit detected in the component."""
+
+    CONFIG_ERROR = PBComponentErrorCode.COMPONENT_ERROR_CODE_CONFIG_ERROR
+    """Error indicating a configuration error related to the component."""
+
+    ILLEGAL_COMPONENT_STATE_CODE_REQUESTED = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_ILLEGAL_COMPONENT_STATE_CODE_REQUESTED
+    )
+    """Error indicating an illegal state requested for the component."""
+
+    HARDWARE_INACCESSIBLE = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_HARDWARE_INACCESSIBLE
+    )
+    """Error indicating that the hardware of the component is inaccessible."""
+
+    INTERNAL = PBComponentErrorCode.COMPONENT_ERROR_CODE_INTERNAL
+    """Error indicating an internal error within the component."""
+
+    UNAUTHORIZED = PBComponentErrorCode.COMPONENT_ERROR_CODE_UNAUTHORIZED
+    """Error indicating that the component is unauthorized to perform the
+    last requested action."""
+
+    EV_CHARGING_CABLE_UNPLUGGED_FROM_STATION = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_EV_CHARGING_CABLE_UNPLUGGED_FROM_STATION
+    )
+    """Error indicating electric vehicle (EV) cable was abruptly unplugged from
+    the charging station."""
+
+    EV_CHARGING_CABLE_UNPLUGGED_FROM_EV = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_EV_CHARGING_CABLE_UNPLUGGED_FROM_EV
+    )
+    """Error indicating electric vehicle (EV) cable was abruptly unplugged from
+    the vehicle."""
+
+    EV_CHARGING_CABLE_LOCK_FAILED = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_EV_CHARGING_CABLE_LOCK_FAILED
+    )
+    """Error indicating electric vehicle (EV) cable lock failure."""
+
+    EV_CHARGING_CABLE_INVALID = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_EV_CHARGING_CABLE_INVALID
+    )
+    """Error indicating an invalid electric vehicle (EV) cable."""
+
+    EV_CONSUMER_INCOMPATIBLE = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_EV_CONSUMER_INCOMPATIBLE
+    )
+    """Error indicating an incompatible electric vehicle (EV) plug."""
+
+    BATTERY_IMBALANCE = PBComponentErrorCode.COMPONENT_ERROR_CODE_BATTERY_IMBALANCE
+    """Error indicating a battery system imbalance."""
+
+    BATTERY_LOW_SOH = PBComponentErrorCode.COMPONENT_ERROR_CODE_BATTERY_LOW_SOH
+    """Error indicating a low state of health (SOH) detected in the battery."""
+
+    BATTERY_BLOCK_ERROR = PBComponentErrorCode.COMPONENT_ERROR_CODE_BATTERY_BLOCK_ERROR
+    """Error indicating a battery block error."""
+
+    BATTERY_CONTROLLER_ERROR = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_BATTERY_CONTROLLER_ERROR
+    )
+    """Error indicating a battery controller error."""
+
+    BATTERY_RELAY_ERROR = PBComponentErrorCode.COMPONENT_ERROR_CODE_BATTERY_RELAY_ERROR
+    """Error indicating a battery relay error."""
+
+    BATTERY_CALIBRATION_NEEDED = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_BATTERY_CALIBRATION_NEEDED
+    )
+    """Error indicating that battery calibration is needed."""
+
+    RELAY_CYCLE_LIMIT_REACHED = (
+        PBComponentErrorCode.COMPONENT_ERROR_CODE_RELAY_CYCLE_LIMIT_REACHED
+    )
+    """Error indicating that the relays have been cycled for the maximum number of
+    times."""
+
+    @classmethod
+    def from_proto(
+        cls, component_error_code: PBComponentErrorCode.ValueType
+    ) -> ComponentErrorCode:
+        """Convert a protobuf ComponentErrorCode message to ComponentErrorCode enum.
+
+        Args:
+            component_error_code: protobuf enum to convert
+
+        Returns:
+            Enum value corresponding to the protobuf message.
+        """
+        if not any(c.value == component_error_code for c in ComponentErrorCode):
+            return ComponentErrorCode.UNSPECIFIED
+        return cls(component_error_code)
+
+    def to_proto(self) -> PBComponentErrorCode.ValueType:
+        """Convert a ComponentErrorCode enum to protobuf ComponentErrorCode message.
 
         Returns:
             Enum value corresponding to the protobuf message.
