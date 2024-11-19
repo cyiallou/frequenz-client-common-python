@@ -2,11 +2,11 @@
 
 ## Summary
 
-<!-- Here goes a general summary of what this release is about -->
+Update of the Pagination `Params` data class.
 
 ## Upgrading
 
-<!-- Here goes notes on how to upgrade from previous versions, including deprecations and what they should be replaced with -->
+* Pagination `Params` has been changed such that the `page_size` and `page_token` fields are now no longer optional.
 
 ## New Features
 
