@@ -10,7 +10,9 @@ Update of the Pagination `Params` data class.
 
 ## New Features
 
-* Additional information for energy metric
+* Additional information for energy metric.
+* Add component state codes.
+* Add component error codes.
 
 ## Bug Fixes
 
